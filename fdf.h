@@ -21,9 +21,11 @@
 # include "get_next_line.h"
 # include "mlx.h"
 # define width 1280
-# define max_elems 1000
 # define height 720
+# define x_c 640
+# define y_c 360
 # define space 25
+# define max_elems 10000
 
 typedef struct 	s_coord
 {
@@ -35,9 +37,20 @@ typedef struct 	s_coord
 typedef struct 	s_mlx
 {
 	void		*mlx;
-	void		*win;	
+	void		*win;
+	int 		dx;
+	int 		dy;
+	int 		x;
+	int 		y;
+	int 		x_end;
+	int 		y_end;
+	int 		incx;
+	int 		incy;
+	int 		pdx;
+	int 		pdy;
+	int 		es;
+	int 		el;
 }				t_mlx;
-
 
 int 	line_count(char	*argv);
 int		read_fdf(int ***xy, int fd);

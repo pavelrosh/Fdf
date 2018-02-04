@@ -12,121 +12,102 @@
 
 #include "fdf.h"
 
-void	draw_h_line(t_coord *arr, int k, t_mlx *mlx_data)
+int 	sign(int x) 
 {
-	int dx;
-	int dy;
-	int x;
-	int y;
-	int x1;
-	int y1;
+	return (x > 0) ? 1 : (x < 0) ? -1 : 0;
+}
 
-	x = arr[k].x;
-	x1 = arr[k + 1].x;
-	y = arr[k].y;
-	y1 = arr[k + 1].y;
-	dx = abs(x - x1);
-	dy = abs(y - y1);
-
-	// printf("%d %d %d %d\n",x, x1, dx, dy);
-	// printf("%d %d\n",arr[k + 1].x, arr[k + 1].y);
-	mlx_pixel_put(mlx_data->mlx, mlx_data->win, x, y, 0xFFFFFF);
-	if (dy <= dx)
+void 	vector_init(t_mlx *data)
+{
+	if (data->dx > data->dy)
 	{
-		while (x <= x1)
-		{
-			x++;
-			y = y + ((x - arr[k].x) * ((y1 - y) / (x1 - arr[k].x)));
-			mlx_pixel_put(mlx_data->mlx, mlx_data->win, x, y, 0xFFFFFF);
-			// printf("H_LINE IF x: %d y: %d\n",x, y);
-		}
+		data->pdx = data->incx;
+		data->pdy = 0;
+		data->es = data->dy;
+		data->el = data->dx;
 	}
 	else
 	{
-		while (y <= y1)
-		{
-			y++;
-			x = x + ((y - arr[k].y) * ((x1 - x) / (y1 - arr[k].y)));
-			mlx_pixel_put(mlx_data->mlx, mlx_data->win, x, y, 0xFFFFFF);
-			// printf("H_LINE ELSE x: %d y: %d\n",x, y);
-		}
+		data->pdx = 0;
+		data->pdy = data->incy;
+		data->es = data->dx;
+		data->el = data->dy;
 	}
-	// printf("draw_H_line k: %d\n", k);
 }
 
-// 0 0 
-// 5 10
-
-void	draw_v_line(t_coord *arr, int k, int w, t_mlx *mlx_data)
+void 	data_init(t_coord *arr, int k, int w, t_mlx *data)
 {
-	int dx;
-	int dy;
-	int x;
-	int y;
-	int x1;
-	int y1;
-
-	x = arr[k].x;
-	x1 = arr[k + w].x;
-	y = arr[k].y;
-	y1 = arr[k + w].y;
-	dx = abs(x - x1);
-	dy = abs(y - y1);
-
-	mlx_pixel_put(mlx_data->mlx, mlx_data->win, x, y, 0xFFFFFF);
-	if (dy <= dx)
+	data->x = arr[k].x;
+	data->y = arr[k].y;
+	if (w == -1)
 	{
-		while (x <= x1)
-		{
-			x++;
-			y = y + ((x - arr[k].x) * ((y1 - y) / (x1 - arr[k].x)));
-			mlx_pixel_put(mlx_data->mlx, mlx_data->win, x, y, 0xFFFFFF);
-			// printf("V_LINE ELSE x: %d y: %d\n",x, y);
-		}
+		data->x_end = arr[k + 1].x;
+		data->y_end = arr[k + 1].y;
 	}
 	else
 	{
-		while (y <= y1)
-		{
-			y++;
-			x = x + ((y - arr[k].y) * ((x1 - x) / (y1 - arr[k].y)));
-			mlx_pixel_put(mlx_data->mlx, mlx_data->win, x, y, 0xFFFFFF);
-			// printf("V_LINE ELSE x: %d y: %d\n",x, y);
-		}
+		data->x_end = arr[k + w].x;
+		data->y_end = arr[k + w].y;
 	}
-	// printf("draw_v_line k: %d\n", k);
+	data->dx = data->x_end - data->x;
+	data->dy = data->y_end - data->y;
+	data->incx = sign(data->dx);
+	data->incy = sign(data->dy);
+	data->dx = abs(data->dx);
+	data->dy = abs(data->dy);
+	vector_init(data);
 }
 
-void	line_init(t_coord *arr, int lines, int w, t_mlx **mlx_data)
+void 	draw_line(t_mlx *data)
 {
-	int 	i;
-	int 	k;
-	int 	index;
-	int 	tmp;
-	int 	w_tmp;
+	int err;
+	int i;
 
 	i = 0;
-	index = lines * w;
-	tmp = index;
-	w_tmp = 0;
-	k = 0;
-	while (index > 0)
+	err = data->el / 2;
+	mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0xFFFFFF);
+	while (i < data->el)
 	{
-		if (w_tmp < (w - 1))
+		err -= data->es;
+		if (err < 0)
 		{
-			draw_h_line(arr, k, *mlx_data);
-			w_tmp++;
-			// printf("IF :%d %d\n", arr[k].x, arr[k + 1].x);
+			err += data->el;
+			data->x += data->incx;
+			data->y += data->incy;
 		}
-		if (w_tmp >= (w - 1))
-				w_tmp = 0;
-		if ((k + w) <= tmp)
+		else
 		{
-			// printf("ELSE %d %d\n", arr[k].x, arr[k + w].x);
-			draw_v_line(arr, k, w, *mlx_data);
+			data->x += data->pdx;
+			data->y += data->pdy;
 		}
-		// printf("INDEX :%d\n", index);
-		index--;
+		mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0xFFFFFF);
+		i++;
+	}
+}
+
+void	line_init(t_coord *arr, int lines, int w, t_mlx **data)
+{
+	int 	k;
+	int 	points;
+	int 	line;
+
+	points = lines * w;
+	k = 0;
+	line = 1;
+	while (k < points - 1)
+	{
+		if (k + 1 <= (w * line) - 1)
+		{
+			data_init(arr, k, -1, *data);
+			draw_line(*data);
+		}
+		else
+			line++;
+		if (k < (points - w))
+		{
+			data_init(arr, k, w, *data);
+			draw_line(*data);
+		}
 		k++;
 	}
 }

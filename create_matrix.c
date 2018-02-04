@@ -74,12 +74,13 @@ void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems)
 	k = 0;
 	while (k < (lines * elems))
 	{
-		arr[k].x = j * space;
+		arr[k].x = (j * space) + (x_c / 2);
 		if (k > 0)
-			arr[k].y = i * space;
+			arr[k].y = (i * space) + (y_c / 2);
 		else
-			arr[k].y = i;
+			arr[k].y = (i * space) + (y_c / 2);
 		arr[k].z = xy[i][j];
+		// printf("k = %d x =%d y = %d z =%d\n", k, arr[k].x, arr[k].y, arr[k].z);
 		if (j == (elems - 1))
 		{
 			j = 0;
