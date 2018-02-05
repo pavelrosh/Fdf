@@ -26,6 +26,23 @@ int 	line_count(char	*argv)
 	return (res);
 }
 
+void	in_center(t_coord *arr, int elems)
+{
+	int k;
+	int x_c;
+	int y_c;
+
+	k = 0;
+	x_c = (width - arr[elems - 1].x) / 2;
+	y_c = (height - arr[elems - 1].y) / 2;
+	while (k < elems)
+	{
+		arr[k].x = arr[k].x + x_c;
+		arr[k].y = arr[k].y + y_c;
+		k++;
+	}
+}
+
 int 	in_matrix(int **xy, char **coord)
 {
 	int j;
@@ -74,11 +91,8 @@ void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems)
 	k = 0;
 	while (k < (lines * elems))
 	{
-		arr[k].x = (j * space) + (x_c / 2);
-		if (k > 0)
-			arr[k].y = (i * space) + (y_c / 2);
-		else
-			arr[k].y = (i * space) + (y_c / 2);
+		arr[k].x = (j * space);
+		arr[k].y = (i * space);
 		arr[k].z = xy[i][j];
 		// printf("k = %d x =%d y = %d z =%d\n", k, arr[k].x, arr[k].y, arr[k].z);
 		if (j == (elems - 1))

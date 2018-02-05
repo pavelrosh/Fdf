@@ -22,9 +22,7 @@
 # include "mlx.h"
 # define width 1280
 # define height 720
-# define x_c 640
-# define y_c 360
-# define space 25
+# define space 30
 # define max_elems 10000
 
 typedef struct 	s_coord
@@ -56,5 +54,5 @@ int 	line_count(char	*argv);
 int		read_fdf(int ***xy, int fd);
 void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems);
 void	line_init(t_coord *arr, int lines, int w, t_mlx **mlx_data);
-
+void	in_center(t_coord *arr, int elems);
 #endif
