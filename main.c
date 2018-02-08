@@ -12,61 +12,43 @@
 
 #include "fdf.h"
 
-void	turn_coord(t_coord *arr, int elems, float angle)
-{
-	int k;
-
-	k = 0;
-	while (k < elems)
-	{
-		arr[k].x = arr[k].x * cos(angle) - arr[k].y * sin(angle);
-		arr[k].y = arr[k].x * sin(angle) + arr[k].y * cos(angle);
-		// printf("x =%d y=%d\n", arr[k].x, arr[k].y);
-		k++;
-	}
-}
-
 int		main(int argc, char **argv)
 {
-	void	*mlx;
-	void	*win;
 	int 	**xy;
 	int 	fd;
-	int 	lines;
-	int 	elems;
-	int 	elem_num;
 
-	t_coord arr[max_elems];
-	t_mlx *data;
-	data = malloc(sizeof(t_mlx));
-	if (argc == 2)
+	t_coord coords[max_elems];
+	t_coord c_coords[max_elems];
+	t_mlx *mlx_d;
+	mlx_d = malloc(sizeof(t_mlx));
+	mlx_d->coords = coords;
+	mlx_d->center = c_coords;
+	if (argc == 2 && mlx_d != NULL)
 	{
 		if ((fd = open(argv[1], O_RDONLY)) != -1)
 		{
-			lines = line_count(argv[1]);
-			xy = (int **)malloc(sizeof(int *) * (lines));
-			elems = read_fdf(&xy, fd);
-			coord_in_arr(&arr[0], xy, lines, elems);
-			mlx = mlx_init();
-			win = mlx_new_window(mlx, width, height, "Fdf-test");
-			data->mlx = mlx;
-			data->win = win;
-			elem_num = elems * lines;
-			// turn_coord(arr, elem_num, 90);
-			in_center(arr, elem_num);
-			line_init(arr, lines, elems, &data);
-			mlx_loop(mlx);
+			mlx_d->lines = line_count(argv[1]);
+			if ((xy = (int **)malloc(sizeof(int *) * (mlx_d->lines))) == NULL)
+			{
+				ft_putstr("Malloc failed\n");
+				return (0);
+			}
+			mlx_d->elems = read_fdf(&xy, fd);
+			coord_in_arr(&coords[0], xy, mlx_d->lines, mlx_d->elems);
+			mlx_d->mlx = mlx_init();
+			mlx_d->win = mlx_new_window(mlx_d->mlx, width, height, "Fdf-test");
+			mlx_d->el_num = mlx_d->elems * mlx_d->lines;
+			in_center(coords, mlx_d);
+			line_init(coords, mlx_d->lines, mlx_d->elems, &mlx_d);
+			mlx_hook(mlx_d->win, 2, 5, key_hook, mlx_d);
+			mlx_loop(mlx_d->mlx);
 			close(fd);
 		}
+		else
+			ft_putstr("Failed to open\n");
 	}
 	return (0);
 }
-
-
-
-
-
-
 
 
 
