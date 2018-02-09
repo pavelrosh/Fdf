@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-int 	sign(int x) 
+double 	sign(double x) 
 {
 	return (x > 0) ? 1 : (x < 0) ? -1 : 0;
 }
@@ -53,14 +53,14 @@ void 	data_init(t_coord *arr, int k, int w, t_mlx *data)
 	data->dy = data->y_end - data->y;
 	data->incx = sign(data->dx);
 	data->incy = sign(data->dy);
-	data->dx = abs(data->dx);
-	data->dy = abs(data->dy);
+	data->dx = fabs(data->dx);
+	data->dy = fabs(data->dy);
 	vector_init(data);
 }
 
 void 	draw_line(t_mlx *data)
 {
-	int err;
+	double err;
 	int i;
 
 	i = 0;

@@ -15,7 +15,7 @@ MFLAGS = -framework OpenGL -framework AppKit -lmlx
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft/libft.a
 GNL = get_next_line.c get_next_line.h
-SRCS = main.c create_matrix.c draw.c key_hook.c move.c
+SRCS = main.c create_matrix.c draw.c key_hook.c move.c rotate.c
 
 all: $(NAME)
 

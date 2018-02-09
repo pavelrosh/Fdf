@@ -12,34 +12,30 @@
 
 #include "fdf.h"
 
-// void 	rotate_hook(int key, t_mlx *d)
-// {
-// 	if (key == Z_RIGHT)
-// 		ft_rotate();
-// 	else if (key == Z_LEFT)
-// 		ft_rotate();
-// }
-
-// void 	in_center_hook(int key, t_mlx *d)
-// {
-// 	int k;
-
-// 	k = -1;
-// 	if (key == CENTER)
-// 	{
-// 		while (k++ < d->el_num)
-// 		{
-// 			d->coords[k].x = d->center[k].x;
-// 			d->coords[k].y = d->center[k].y;
-// 		}
-// 		mlx_clear_window(d->mlx, d->win);
-// 		line_init(d->coords, d->lines, d->elems, &d);
-// 	}
-// }
-
-void 	in_center_hook()
+void 	rotate_hook(int key, t_mlx *d)
 {
-	
+	if (key == X_UP)
+		ft_rotate(d, 'x', n_alpha);
+	else if (key == X_DOWN)
+		ft_rotate(d, 'x', p_alpha);
+	else if (key == Y_RIGHT)
+		ft_rotate(d, 'y', n_alpha);
+	else if (key == Y_LEFT)
+		ft_rotate(d, 'y', p_alpha);
+	else if (key == Z_LEFT)
+		ft_rotate(d, 'z', n_alpha);
+	else if (key == Z_RIGHT)
+		ft_rotate(d, 'z', p_alpha);
+}
+
+void 	center_hook(int key, t_mlx *d)
+{
+	if (key == CENTER)
+	{
+		in_center(d);
+		mlx_clear_window(d->mlx, d->win);
+		line_init(d->coords, d->lines, d->elems, &d);
+	}
 }
 
 void 	esc_hook(int key, t_mlx *d)
@@ -67,7 +63,7 @@ int 	key_hook(int key, t_mlx *d)
 {
 	esc_hook(key, d);
 	move_hook(key, d);
-	// in_center_hook(key, d);
+	center_hook(key, d);
 	rotate_hook(key, d);
 	return (0);
 }

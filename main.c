@@ -18,11 +18,9 @@ int		main(int argc, char **argv)
 	int 	fd;
 
 	t_coord coords[max_elems];
-	t_coord c_coords[max_elems];
 	t_mlx *mlx_d;
 	mlx_d = malloc(sizeof(t_mlx));
 	mlx_d->coords = coords;
-	mlx_d->center = c_coords;
 	if (argc == 2 && mlx_d != NULL)
 	{
 		if ((fd = open(argv[1], O_RDONLY)) != -1)
@@ -36,9 +34,9 @@ int		main(int argc, char **argv)
 			mlx_d->elems = read_fdf(&xy, fd);
 			coord_in_arr(&coords[0], xy, mlx_d->lines, mlx_d->elems);
 			mlx_d->mlx = mlx_init();
-			mlx_d->win = mlx_new_window(mlx_d->mlx, width, height, "Fdf-test");
+			mlx_d->win = mlx_new_window(mlx_d->mlx, width, height, "Fdf");
 			mlx_d->el_num = mlx_d->elems * mlx_d->lines;
-			in_center(coords, mlx_d);
+			in_center(mlx_d);
 			line_init(coords, mlx_d->lines, mlx_d->elems, &mlx_d);
 			mlx_hook(mlx_d->win, 2, 5, key_hook, mlx_d);
 			mlx_loop(mlx_d->mlx);

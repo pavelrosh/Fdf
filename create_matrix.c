@@ -34,22 +34,23 @@ int 	line_count(char	*argv)
 	}
 }
 
-void	in_center(t_coord *arr, t_mlx *d)
+void	in_center(t_mlx *d)
 {
 	int k;
-	int x_c;
-	int y_c;
+	double x_c;
+	double y_c;
+	double c_x;
+	double c_y;
 
-	k = 0;
-	x_c = (width - arr[d->el_num - 1].x) / 2;
-	y_c = (height - arr[d->el_num - 1].y) / 2;
-	while (k < d->el_num)
+	k = -1;
+	x_c = (d->coords[d->el_num - 1].x + d->coords[0].x) / 2;
+	y_c = (d->coords[d->el_num - 1].y + d->coords[0].y) / 2;
+	c_x = (width / 2) - x_c;
+	c_y = (height / 2) - y_c;
+	while (k++ < d->el_num)
 	{
-		arr[k].x = arr[k].x + x_c;
-		arr[k].y = arr[k].y + y_c;
-		d->center[k].x = arr[k].x;
-		d->center[k].y = arr[k].y;
-		k++;
+		d->coords[k].x = d->coords[k].x + c_x;
+		d->coords[k].y = d->coords[k].y + c_y;
 	}
 }
 
@@ -102,8 +103,6 @@ void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems)
 	k = 0;
 	while (k < (lines * elems))
 	{
-		// arr[k].x = j * xy[i][j] * space;
-		// arr[k].y = i * xy[i][j] * space;
 		arr[k].x = j * space;
 		arr[k].y = i * space;
 		arr[k].z = xy[i][j];
