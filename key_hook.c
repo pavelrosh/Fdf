@@ -12,12 +12,20 @@
 
 #include "fdf.h"
 
+void	zoom_hook(int key, t_mlx *d)
+{
+	if (key == incr)
+		ft_zoom(d, p_zoom);
+	else if (key == decr)
+		ft_zoom(d, n_zoom);
+}
+
 void 	rotate_hook(int key, t_mlx *d)
 {
 	if (key == X_UP)
-		ft_rotate(d, 'x', n_alpha);
-	else if (key == X_DOWN)
 		ft_rotate(d, 'x', p_alpha);
+	else if (key == X_DOWN)
+		ft_rotate(d, 'x', n_alpha);
 	else if (key == Y_RIGHT)
 		ft_rotate(d, 'y', n_alpha);
 	else if (key == Y_LEFT)
@@ -65,5 +73,6 @@ int 	key_hook(int key, t_mlx *d)
 	move_hook(key, d);
 	center_hook(key, d);
 	rotate_hook(key, d);
+	zoom_hook(key, d);
 	return (0);
 }

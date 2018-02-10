@@ -20,10 +20,13 @@
 # include "../libft/libft.h"
 # include "get_next_line.h"
 # include "mlx.h"
+
 # define width 1280
 # define height 720
-# define space 30
+# define p_zoom 1.1
+# define n_zoom 0.9
 # define max_elems 10000
+
 # define ESC 53
 # define LEFT 123
 # define RIGHT 124
@@ -35,8 +38,11 @@
 # define Y_LEFT 86
 # define Z_LEFT 89
 # define Z_RIGHT 92
-# define step 50
+# define incr 69
+# define decr 78
 # define CENTER 49
+
+# define step 50
 # define p_alpha GR(10)
 # define n_alpha -GR(10)
 # define GR(x) (x * 3.14) / 180 
@@ -108,9 +114,13 @@ void	in_center(t_mlx *d);
 int 	key_hook(int key, t_mlx *d);
 void	ft_move(t_mlx *d, int dx, int dy);
 void 	to_win_corn(t_mlx *d);
-void 	ft_rotate(t_mlx *d, char axis, double degr);
-t_mtr 	*mtr_init_x(double degr);
-t_mtr 	*mtr_init_y(double degr);
-t_mtr 	*mtr_init_z(double degr);
+void 	ft_rotate(t_mlx *d, char axis, float degr);
+t_mtr 	*mtr_init_x(float degr);
+t_mtr 	*mtr_init_y(float degr);
+t_mtr 	*mtr_init_z(float degr);
 void	mtr_mult(t_mlx *d, t_mtr *mtr);
+void 	to_start_pos(t_mlx *d);
+void 	ft_zoom(t_mlx *d, double val);
+t_mtr 	*mtr_zoom_init(double val);
+void 	vect_normin(t_mlx *d);
 #endif

@@ -37,7 +37,7 @@ int		main(int argc, char **argv)
 			mlx_d->win = mlx_new_window(mlx_d->mlx, width, height, "Fdf");
 			mlx_d->el_num = mlx_d->elems * mlx_d->lines;
 			in_center(mlx_d);
-			line_init(coords, mlx_d->lines, mlx_d->elems, &mlx_d);
+			ft_zoom(mlx_d, 25);
 			mlx_hook(mlx_d->win, 2, 5, key_hook, mlx_d);
 			mlx_loop(mlx_d->mlx);
 			close(fd);

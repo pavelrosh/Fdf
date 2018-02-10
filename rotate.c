@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void 	ft_rotate(t_mlx *d, char axis, double degr)
+void 	ft_rotate(t_mlx *d, char axis, float degr)
 {
 	t_mtr *mtr;
 	to_win_corn(d);
@@ -23,13 +23,14 @@ void 	ft_rotate(t_mlx *d, char axis, double degr)
 	else
 		mtr = mtr_init_z(degr);
 	mtr_mult(d, mtr);
-	in_center(d);
+	vect_normin(d);
+	to_start_pos(d);
 	mlx_clear_window(d->mlx, d->win);
 	line_init(d->coords, d->lines, d->elems, &d);
 	free(mtr);
 }
 
-t_mtr 	*mtr_init_x(double degr)
+t_mtr 	*mtr_init_x(float degr)
 {
 	t_mtr *mtr;
 	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
@@ -47,7 +48,7 @@ t_mtr 	*mtr_init_x(double degr)
 	return (mtr);
 }
 
-t_mtr 	*mtr_init_y(double degr)
+t_mtr 	*mtr_init_y(float degr)
 {
 	t_mtr *mtr;
 	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
@@ -61,7 +62,7 @@ t_mtr 	*mtr_init_y(double degr)
 	return (mtr);
 }
 
-t_mtr 	*mtr_init_z(double degr)
+t_mtr 	*mtr_init_z(float degr)
 {
 	t_mtr *mtr;
 	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
@@ -75,17 +76,25 @@ t_mtr 	*mtr_init_z(double degr)
 	return (mtr);
 }
 
-void	mtr_mult(t_mlx *d, t_mtr *mtr)
-{
-	int k;
 
-	k = 0;
-	while (k < d->el_num)
-	{
-		d->coords[k].x = d->coords[k].x * mtr->m1 + d->coords[k].y * mtr->m5 + d->coords[k].z * mtr->m9;
-		d->coords[k].y = d->coords[k].x * mtr->m2 + d->coords[k].y * mtr->m6 + d->coords[k].z * mtr->m10;
-		d->coords[k].z = d->coords[k].x * mtr->m3 + d->coords[k].y * mtr->m7 + d->coords[k].z * mtr->m11;
-		// printf("x =%d y=%d z=%d\n", d->coords[k].x, d->coords[k].y, d->coords[k].z);
-		k++;
-	}
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
