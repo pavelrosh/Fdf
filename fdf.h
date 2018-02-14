@@ -47,12 +47,19 @@
 # define n_alpha -GR(10)
 # define GR(x) (x * 3.14) / 180 
 
+typedef struct 	s_degree
+{
+	float 		x;
+	float 		y;
+	float 		z;
+}				t_degree;
+
 typedef struct 	s_coord
 {
 	double 		x;
 	double		y;
 	double		z;
-	int 		w;
+	double 		w;
 }				t_coord;
 
 typedef struct 	s_center
@@ -103,24 +110,26 @@ typedef struct 	s_mlx
 	int 		lines;
 	int 		elems;
 	t_coord 	*coords;
+	t_coord 	*begin;
 	t_center 	*center;
 }				t_mlx;
 
 int 	line_count(char	*argv);
 int		read_fdf(int ***xy, int fd);
-void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems);
+void	coord_in_arr(t_mlx *d, int **xy);
 void	line_init(t_coord *arr, int lines, int w, t_mlx **mlx_data);
 void	in_center(t_mlx *d);
 int 	key_hook(int key, t_mlx *d);
 void	ft_move(t_mlx *d, int dx, int dy);
 void 	to_win_corn(t_mlx *d);
 void 	ft_rotate(t_mlx *d, char axis, float degr);
-t_mtr 	*mtr_init_x(float degr);
-t_mtr 	*mtr_init_y(float degr);
-t_mtr 	*mtr_init_z(float degr);
+t_mtr 	*mtr_init_x(double degr);
+t_mtr 	*mtr_init_y(double degr);
+t_mtr 	*mtr_init_z(double degr);
+t_mtr 	*mtr_zoom_init(double val);
 void	mtr_mult(t_mlx *d, t_mtr *mtr);
 void 	to_start_pos(t_mlx *d);
 void 	ft_zoom(t_mlx *d, double val);
-t_mtr 	*mtr_zoom_init(double val);
-void 	vect_normin(t_mlx *d);
+void 	start_coord(t_mlx *d);
+int 	ft_error(char *str);
 #endif

@@ -28,10 +28,8 @@ int 	line_count(char	*argv)
 		return (res);
 	}
 	else
-	{
-		ft_putstr("Failed to open\n");
-		return (0);
-	}
+		ft_error("Failed to open\n");
+	return (0);
 }
 
 void	in_center(t_mlx *d)
@@ -40,7 +38,7 @@ void	in_center(t_mlx *d)
 
 	k = -1;
 	if (!(d->center = ft_memalloc(sizeof(t_center))))
-		ft_putstr("Malloc failed in in_center()\n");
+		ft_error("Malloc failed in in_center()\n");
 	d->center->x_c = (d->coords[d->el_num - 1].x + d->coords[0].x) / 2;
 	d->center->y_c = (d->coords[d->el_num - 1].y + d->coords[0].y) / 2;
 	d->center->c_x = (width / 2) - d->center->x_c;
@@ -60,7 +58,7 @@ int 	in_matrix(int **xy, char **coord)
 	while (coord[j] != '\0')
 		j++;
 	if (((*xy) = (int *)malloc(sizeof(int) * (j + 1))) == NULL)
-		ft_putstr("Malloc failed in in_matrix()\n");
+		ft_error("Malloc failed in in_matrix()\n");
 	j = 0;
 	while (coord[j] != '\0')
 	{
@@ -90,7 +88,7 @@ int		read_fdf(int ***xy, int fd)
 	return(w);
 }
 
-void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems)
+void	coord_in_arr(t_mlx *d, int **xy)
 {
 	int i;
 	int j;
@@ -99,14 +97,15 @@ void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems)
 	i = 0;
 	j = 0;
 	k = 0;
-	while (k < (lines * elems))
+	while (k < d->el_num)
 	{
-		arr[k].x = j;
-		arr[k].y = i;
-		arr[k].z = xy[i][j];
-		arr[k].w = 1;
-		// printf("k = %d x =%d y = %d z =%d\n", k, arr[k].x, arr[k].y, arr[k].z);
-		if (j == (elems - 1))
+		d->coords[k].x = j;
+		d->coords[k].y = i;
+		d->coords[k].z = xy[i][j];
+		d->coords[k].w = 1;
+		// printf("k = %d x =%f y = %f z =%f\n", k, d->coords[k].x, d->coords[k].y, d->coords[k].z);
+		// printf("k = %d x =%f y = %f z =%f\n", k, d->begin[k].x, d->begin[k].y, d->begin[k].z);
+		if (j == (d->elems - 1))
 		{
 			j = 0;
 			i++;
@@ -116,3 +115,17 @@ void	coord_in_arr(t_coord *arr, int **xy, int lines, int elems)
 		k++;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

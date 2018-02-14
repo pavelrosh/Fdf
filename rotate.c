@@ -12,70 +12,59 @@
 
 #include "fdf.h"
 
+void 	start_coord_init(t_mlx *d)
+{
+	int k;
+
+	k = -1;
+	while (k++ < d->el_num)
+	{
+		d->coords[k].x = d->begin[k].x;
+		d->coords[k].y = d->begin[k].y;
+		d->coords[k].z = d->begin[k].z;
+	}
+}
+
 void 	ft_rotate(t_mlx *d, char axis, float degr)
 {
-	t_mtr *mtr;
+	static float degr_x = 0;
+	static float degr_y = 0;
+	static float degr_z = 0;
+	t_mtr *mtr_x;
+	t_mtr *mtr_y;
+	t_mtr *mtr_z;
+	start_coord_init(d);
 	to_win_corn(d);
+
 	if (axis == 'x')
-		mtr = mtr_init_x(degr);
+		degr_x += degr;
 	else if (axis == 'y')
-		mtr = mtr_init_y(degr);
+		degr_y += degr;
 	else
-		mtr = mtr_init_z(degr);
-	mtr_mult(d, mtr);
-	vect_normin(d);
+		degr_z += degr;
+
+	if (degr_x != 0)
+	{
+		mtr_x = mtr_init_x(degr_x);
+		mtr_mult(d, mtr_x);
+		free(mtr_x);
+	}
+	if (degr_y != 0)
+	{
+		mtr_y = mtr_init_y(degr_y);
+		mtr_mult(d, mtr_y);
+		free(mtr_y);
+	}
+	if (degr_z != 0)
+	{
+		mtr_z = mtr_init_z(degr_z);
+		mtr_mult(d, mtr_z);
+		free(mtr_z);
+	}
 	to_start_pos(d);
 	mlx_clear_window(d->mlx, d->win);
 	line_init(d->coords, d->lines, d->elems, &d);
-	free(mtr);
 }
-
-t_mtr 	*mtr_init_x(float degr)
-{
-	t_mtr *mtr;
-	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
-		ft_putstr("malloc failed in mtr_init()");
-	mtr->m1 = 1;
-	mtr->m6 = cos(degr);
-	// printf("m6=%f\n", mtr->m6);
-	mtr->m7 = sin(degr);
-	// printf("m7=%f\n", mtr->m7);
-	mtr->m10 = -sin(degr);
-	// printf("m10=%f\n", mtr->m10);
-	mtr->m11 = cos(degr);
-	// printf("m11=%f\n", mtr->m11);
-	mtr->m16 = 1;
-	return (mtr);
-}
-
-t_mtr 	*mtr_init_y(float degr)
-{
-	t_mtr *mtr;
-	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
-		ft_putstr("malloc failed in mtr_init()");
-	mtr->m1 = cos(degr);
-	mtr->m3 = sin(degr);
-	mtr->m6 = 1;
-	mtr->m9 = -sin(degr);
-	mtr->m11 = cos(degr);
-	mtr->m16 = 1;
-	return (mtr);
-}
-
-t_mtr 	*mtr_init_z(float degr)
-{
-	t_mtr *mtr;
-	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
-		ft_putstr("malloc failed in mtr_init()");
-	mtr->m1 = cos(degr);
-	mtr->m2 = sin(degr);
-	mtr->m5 = -sin(degr);
-	mtr->m6 = cos(degr);
-	mtr->m11 = 1;
-	mtr->m16 = 1;
-	return (mtr);
-}
-
 
 
 
