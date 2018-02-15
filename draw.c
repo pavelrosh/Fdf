@@ -65,7 +65,7 @@ void 	draw_line(t_mlx *data)
 
 	i = 0;
 	err = data->el / 2;
-	mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0xFFFFFF);
+	mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0x9FBBFF);//0xFFFFFF
 	while (i < data->el)
 	{
 		err -= data->es;
@@ -80,33 +80,32 @@ void 	draw_line(t_mlx *data)
 			data->x += data->pdx;
 			data->y += data->pdy;
 		}
-		mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0xFFFFFF);
+		mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0x9FBBFF);
 		i++;
 	}
 }
 
-void	line_init(t_coord *arr, int lines, int w, t_mlx **data)
+void	line_init(t_coord *arr, t_mlx *d)
 {
 	int 	k;
-	int 	points;
 	int 	line;
 
-	points = lines * w;
 	k = 0;
 	line = 1;
-	while (k < points - 1)
+	// ft_color(d);
+	while (k < d->el_num - 1)
 	{
-		if (k + 1 <= (w * line) - 1)
+		if (k + 1 <= (d->elems * line) - 1)
 		{
-			data_init(arr, k, -1, *data);
-			draw_line(*data);
+			data_init(arr, k, -1, d);
+			draw_line(d);
 		}
 		else
 			line++;
-		if (k < (points - w))
+		if (k < (d->el_num - d->elems))
 		{
-			data_init(arr, k, w, *data);
-			draw_line(*data);
+			data_init(arr, k, d->elems, d);
+			draw_line(d);
 		}
 		k++;
 	}

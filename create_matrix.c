@@ -85,6 +85,7 @@ int		read_fdf(int ***xy, int fd)
 		ft_strdel(&line);
 		i++;
 	}
+	close(fd);
 	return(w);
 }
 
@@ -102,7 +103,6 @@ void	coord_in_arr(t_mlx *d, int **xy)
 		d->coords[k].x = j;
 		d->coords[k].y = i;
 		d->coords[k].z = xy[i][j];
-		d->coords[k].w = 1;
 		// printf("k = %d x =%f y = %f z =%f\n", k, d->coords[k].x, d->coords[k].y, d->coords[k].z);
 		// printf("k = %d x =%f y = %f z =%f\n", k, d->begin[k].x, d->begin[k].y, d->begin[k].z);
 		if (j == (d->elems - 1))

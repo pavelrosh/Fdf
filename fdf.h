@@ -25,7 +25,7 @@
 # define height 720
 # define p_zoom 1.1
 # define n_zoom 0.9
-# define max_elems 10000
+# define max_elems 100000
 
 # define ESC 53
 # define LEFT 123
@@ -45,13 +45,13 @@
 # define step 50
 # define p_alpha GR(10)
 # define n_alpha -GR(10)
-# define GR(x) (x * 3.14) / 180 
+# define GR(x) (x * M_PI) / 180 
 
 typedef struct 	s_degree
 {
-	float 		x;
-	float 		y;
-	float 		z;
+	float 		degr_x;
+	float 		degr_y;
+	float 		degr_z;
 }				t_degree;
 
 typedef struct 	s_coord
@@ -59,7 +59,7 @@ typedef struct 	s_coord
 	double 		x;
 	double		y;
 	double		z;
-	double 		w;
+	int 		color;
 }				t_coord;
 
 typedef struct 	s_center
@@ -81,19 +81,13 @@ typedef struct 	s_mtr
 	double 		m7;
 	double 		m8;
 	double 		m9;
-	double 		m10;
-	double 		m11;
-	double 		m12;
-	double 		m13;
-	double 		m14;
-	double 		m15;
-	double 		m16;
 } 				t_mtr;
 
 typedef struct 	s_mlx
 {
 	void		*mlx;
 	void		*win;
+	void 		*img;
 	double 		dx;
 	double 		dy;
 	double 		x;
@@ -112,12 +106,13 @@ typedef struct 	s_mlx
 	t_coord 	*coords;
 	t_coord 	*begin;
 	t_center 	*center;
+	t_degree 	*g;
 }				t_mlx;
 
 int 	line_count(char	*argv);
 int		read_fdf(int ***xy, int fd);
 void	coord_in_arr(t_mlx *d, int **xy);
-void	line_init(t_coord *arr, int lines, int w, t_mlx **mlx_data);
+void	line_init(t_coord *arr, t_mlx *mlx_d);
 void	in_center(t_mlx *d);
 int 	key_hook(int key, t_mlx *d);
 void	ft_move(t_mlx *d, int dx, int dy);
@@ -132,4 +127,6 @@ void 	to_start_pos(t_mlx *d);
 void 	ft_zoom(t_mlx *d, double val);
 void 	start_coord(t_mlx *d);
 int 	ft_error(char *str);
+void 	ft_color(t_mlx *d);
+
 #endif

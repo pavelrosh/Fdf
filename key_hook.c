@@ -43,7 +43,7 @@ void 	center_hook(int key, t_mlx *d)
 		in_center(d);
 		start_coord(d);
 		mlx_clear_window(d->mlx, d->win);
-		line_init(d->coords, d->lines, d->elems, &d);
+		line_init(d->coords, d);
 	}
 }
 
@@ -62,7 +62,11 @@ void	move_hook(int key, t_mlx *d)
 int 	key_hook(int key, t_mlx *d)
 {
 	if (key == ESC)
+	{
+		free(d);
+		free(d->g);
 		exit(0);
+	}
 	move_hook(key, d);
 	center_hook(key, d);
 	rotate_hook(key, d);
