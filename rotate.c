@@ -26,6 +26,32 @@ void 	start_coord_init(t_mlx *d)
 	}
 }
 
+// void 	rotate_help(t_mlx *d)
+// {
+// 	t_mtr *mtr_x;
+// 	t_mtr *mtr_y;
+// 	t_mtr *mtr_z;
+	
+// 	if (d->g->degr_x != 0)
+// 	{
+// 		mtr_x = mtr_init_x(d->g->degr_x);
+// 		mtr_mult(d, mtr_x);
+// 		free(mtr_x);
+// 	}
+// 	if (d->g->degr_y != 0)
+// 	{
+// 		mtr_y = mtr_init_y(d->g->degr_y);
+// 		mtr_mult(d, mtr_y);
+// 		free(mtr_y);
+// 	}
+// 	if (d->g->degr_z != 0)
+// 	{
+// 		mtr_z = mtr_init_z(d->g->degr_z);
+// 		mtr_mult(d, mtr_z);
+// 		free(mtr_z);
+// 	}
+// }
+
 void 	ft_rotate(t_mlx *d, char axis, float degr)
 {
 	t_mtr *mtr_x;
@@ -40,7 +66,7 @@ void 	ft_rotate(t_mlx *d, char axis, float degr)
 		d->g->degr_y += degr;
 	else if (axis == 'z')
 		d->g->degr_z += degr;
-
+	// rotate_help(d);
 	if (d->g->degr_x != 0)
 	{
 		mtr_x = mtr_init_x(d->g->degr_x);
@@ -60,8 +86,6 @@ void 	ft_rotate(t_mlx *d, char axis, float degr)
 		free(mtr_z);
 	}
 	to_start_pos(d);
-	mlx_clear_window(d->mlx, d->win);
-	line_init(d->coords, d);
 }
 
 

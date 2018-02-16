@@ -12,37 +12,37 @@
 
 #include "fdf.h"
 
-int 	scaling(t_mlx *d)
+double 	scaling(t_mlx *d)
 {
 	int k;
-	double res_x;
-	double res_y;
-	int res;
+	double x;
+	double y;
 
-	k = -1;
-	res = 1;
-	res_x = width / (d->coords[d->el_num - 1].x - d->coords[0].x);
-	res_y = height / (d->coords[d->el_num - 1].y - d->coords[0].y);
-	
-	if (res_x < res_y)
-		res = res_x / 2;
-	else
-		res = res_y / 2;
-	return (res);
+	k = 0;
+	in_center_help(d);
+	d->center->max_x = d->center->max_x - d->center->min_x; //w
+	d->center->max_y = d->center->max_y - d->center->min_y; //h
+	// printf("%f %f\n", max_x, max_y);
+	x = width / (d->center->max_x * 1.5);
+	y = height / (d->center->max_y * 1.5);
+	// printf("%f %f\n", x, y);
+	if (x > y)
+		return (x);
+	return (y);
 }
 
-// void 	isometric(t_mlx *d)
-// {
-// 	ft_rotate(d, 'x', (50 * 3.14) / 180);
-// 	ft_rotate(d, 'y', (30 * 3.14) / 180);
-// 	ft_rotate(d, 'z', (15 * 3.14) / 180);
-// }
-
-int 	menu_init(t_mlx *d)
+void 	isometric(t_mlx *d)
 {
-	// d->img = mlx_new_image(d->mlx, width, height);
-	// mlx_put_image_to_window(d->mlx, d->win, d->img, 100, 100);
-	mlx_string_put(d->mlx, d->win, 100, 100, 0x9FBBFF, "THE MENU");
+	ft_rotate(d, 'x', (50 * 3.14) / 180);
+	ft_rotate(d, 'y', (30 * 3.14) / 180);
+	ft_rotate(d, 'z', (15 * 3.14) / 180);
+}
+
+int 	expose_hook(t_mlx *d)
+{
+	mlx_clear_window(d->mlx, d->win);
+	menu_init(d);
+	line_init(d->coords, d);
 	return (0);
 }
 
@@ -59,13 +59,13 @@ void	init_data(t_mlx *d, int **xy)
 	d->win = mlx_new_window(d->mlx, width, height, "Fdf");
 	d->el_num = d->elems * d->lines;
 	coord_in_arr(d, xy);
-	in_center(d);
-	ft_zoom(d, scaling(d));
-	start_coord(d);
 	free(xy);
-	menu_init(d);
-	// isometric(d);
-	mlx_hook(d->win, 2, 5, key_hook, d);
+	start_coord(d);
+	isometric(d);
+	ft_zoom(d, scaling(d));
+	in_center(d);
+	mlx_expose_hook(d->win, expose_hook, d);
+	mlx_key_hook(d->win, key_hook, d);
 	mlx_loop(d->mlx);
 }
 
@@ -85,8 +85,6 @@ int		main(int argc, char **argv)
 				ft_error("Malloc failed\n");
 			d->elems = read_fdf(&xy, fd);
 			init_data(d, xy);
-			// mlx_clear_window(d->mlx, d->win);
-			mlx_expose_hook(d->win, menu_init, d);
 		}
 	}
 	ft_error("Failed to open\n");

@@ -23,6 +23,7 @@
 
 # define width 1280
 # define height 720
+# define s_win width * height
 # define p_zoom 1.1
 # define n_zoom 0.9
 # define max_elems 100000
@@ -68,6 +69,10 @@ typedef struct 	s_center
 	double 		y_c;
 	double 		c_x;
 	double 		c_y;
+	double 		max_x;
+	double 		max_y;
+	double 		min_x;
+	double 		min_y;
 }				t_center;
 
 typedef struct 	s_mtr
@@ -128,5 +133,8 @@ void 	ft_zoom(t_mlx *d, double val);
 void 	start_coord(t_mlx *d);
 int 	ft_error(char *str);
 void 	ft_color(t_mlx *d);
+int 	expose_hook(t_mlx *d);
+void	menu_init(t_mlx *d);
+void 	in_center_help(t_mlx *d);
 
 #endif

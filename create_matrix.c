@@ -36,17 +36,19 @@ void	in_center(t_mlx *d)
 {
 	int k;
 
-	k = -1;
+	k = 0;
 	if (!(d->center = ft_memalloc(sizeof(t_center))))
 		ft_error("Malloc failed in in_center()\n");
-	d->center->x_c = (d->coords[d->el_num - 1].x + d->coords[0].x) / 2;
-	d->center->y_c = (d->coords[d->el_num - 1].y + d->coords[0].y) / 2;
+	in_center_help(d);
+	d->center->x_c = (d->center->min_x + d->center->max_x) / 2;
+	d->center->y_c = (d->center->min_y + d->center->max_y) / 2;
 	d->center->c_x = (width / 2) - d->center->x_c;
 	d->center->c_y = (height / 2) - d->center->y_c;
-	while (k++ < d->el_num)
+	while (k < d->el_num)
 	{
 		d->coords[k].x = d->coords[k].x + d->center->c_x;
 		d->coords[k].y = d->coords[k].y + d->center->c_y;
+		k++;
 	}
 }
 

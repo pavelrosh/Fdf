@@ -42,8 +42,6 @@ void 	center_hook(int key, t_mlx *d)
 	{
 		in_center(d);
 		start_coord(d);
-		mlx_clear_window(d->mlx, d->win);
-		line_init(d->coords, d);
 	}
 }
 
@@ -65,11 +63,13 @@ int 	key_hook(int key, t_mlx *d)
 	{
 		free(d);
 		free(d->g);
+		// while (2);
 		exit(0);
 	}
 	move_hook(key, d);
 	center_hook(key, d);
 	rotate_hook(key, d);
 	zoom_hook(key, d);
+	expose_hook(d);
 	return (0);
 }

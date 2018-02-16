@@ -23,9 +23,7 @@ void	ft_move(t_mlx *d, int dx, int dy)
 		d->coords[k].y = d->coords[k].y + (dy * step);
 		k++;
 	}
-	mlx_clear_window(d->mlx, d->win);
 	start_coord(d);
-	line_init(d->coords, d);
 }
 
 void 	to_win_corn(t_mlx *d)
@@ -64,10 +62,8 @@ void 	ft_zoom(t_mlx *d, double val)
 	mtr = mtr_zoom_init(val);
 	to_win_corn(d);
 	mtr_mult(d, mtr);
-	mlx_clear_window(d->mlx, d->win);
 	to_start_pos(d);
 	start_coord(d);
-	line_init(d->coords, d);
 	free(mtr);
 }
 
@@ -87,10 +83,6 @@ void	mtr_mult(t_mlx *d, t_mtr *mtr)
 		d->coords[k].x = x * mtr->m1 + y * mtr->m4 + z * mtr->m7;
 		d->coords[k].y = x * mtr->m2 + y * mtr->m5 + z * mtr->m8;
 		d->coords[k].z = x * mtr->m3 + y * mtr->m6 + z * mtr->m9;
-		// d->coords[k].x = x * mtr->m1 + y * mtr->m2 + z * mtr->m3;
-		// d->coords[k].y = x * mtr->m4 + y * mtr->m5 + z * mtr->m6;
-		// d->coords[k].z = x * mtr->m7 + y * mtr->m8 + z * mtr->m9;
-		// printf("x =%d y=%d z=%d\n", d->coords[k].x, d->coords[k].y, d->coords[k].z);
 		k++;
 	}
 }
