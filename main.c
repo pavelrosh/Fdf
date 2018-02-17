@@ -51,7 +51,8 @@ void	init_data(t_mlx *d, int **xy)
 	t_coord coords[max_elems];
 	t_coord begin[max_elems];
 	t_degree *g;
-	g = malloc(sizeof(t_degree));
+	if (!(g = malloc(sizeof(t_degree))))
+		ft_error("Malloc failed in t_degree *g\n");
 	d->coords = coords;
 	d->begin = begin;
 	d->g = g;
@@ -59,11 +60,11 @@ void	init_data(t_mlx *d, int **xy)
 	d->win = mlx_new_window(d->mlx, width, height, "Fdf");
 	d->el_num = d->elems * d->lines;
 	coord_in_arr(d, xy);
-	free(xy);
 	start_coord(d);
 	isometric(d);
 	ft_zoom(d, scaling(d));
 	in_center(d);
+	start_coord(d);
 	mlx_expose_hook(d->win, expose_hook, d);
 	mlx_key_hook(d->win, key_hook, d);
 	mlx_loop(d->mlx);
@@ -75,7 +76,9 @@ int		main(int argc, char **argv)
 	int 	fd;
 
 	t_mlx *d;
-	d = malloc(sizeof(t_mlx));
+	d = ft_memalloc(sizeof(t_mlx));
+	if (!(d->center = ft_memalloc(sizeof(t_center))) || !d)
+		ft_error("Malloc failed in d->center\n");
 	if (argc == 2 && d != NULL)
 	{
 		if ((fd = open(argv[1], O_RDONLY)) != -1)

@@ -12,14 +12,14 @@
 
 #include "fdf.h"
 
-void 	ft_color(t_mlx *d)
+t_mtr 	*mtr_stretch_init(double sx, double sy)
 {
-	int k;
-
-	k = 0;
-	while (k < d->el_num)
-	{
-		d->coords[k].color = 0x9FBBFF;
-		k++;
-	}
+	t_mtr *mtr;
+	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
+		ft_error("malloc failed in mtr_zoom_init()");
+	mtr_init_zero(mtr);
+	mtr->m1 = sx;
+	mtr->m5 = sy;
+	mtr->m9 = 1;
+	return (mtr);
 }

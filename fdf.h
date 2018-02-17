@@ -26,7 +26,9 @@
 # define s_win width * height
 # define p_zoom 1.1
 # define n_zoom 0.9
-# define max_elems 100000
+# define max_elems 10000
+# define p_stretch 1.1
+# define n_stretch 0.9
 
 # define ESC 53
 # define LEFT 123
@@ -42,6 +44,10 @@
 # define incr 69
 # define decr 78
 # define CENTER 49
+# define PSX 106
+# define PSY 79
+# define NSX 64
+# define NSY 80
 
 # define step 50
 # define p_alpha GR(10)
@@ -108,6 +114,7 @@ typedef struct 	s_mlx
 	int 		el_num;
 	int 		lines;
 	int 		elems;
+	int 		color;
 	t_coord 	*coords;
 	t_coord 	*begin;
 	t_center 	*center;
@@ -127,6 +134,8 @@ t_mtr 	*mtr_init_x(double degr);
 t_mtr 	*mtr_init_y(double degr);
 t_mtr 	*mtr_init_z(double degr);
 t_mtr 	*mtr_zoom_init(double val);
+void 	mtr_init_zero(t_mtr *mtr);
+t_mtr 	*mtr_stretch_init(double sx, double sy);
 void	mtr_mult(t_mlx *d, t_mtr *mtr);
 void 	to_start_pos(t_mlx *d);
 void 	ft_zoom(t_mlx *d, double val);
@@ -136,5 +145,7 @@ void 	ft_color(t_mlx *d);
 int 	expose_hook(t_mlx *d);
 void	menu_init(t_mlx *d);
 void 	in_center_help(t_mlx *d);
+void 	ft_stretch(char axis, double val, t_mlx *d);
+void 	start_coord_init(t_mlx *d);
 
 #endif

@@ -65,7 +65,7 @@ void 	draw_line(t_mlx *data)
 
 	i = 0;
 	err = data->el / 2;
-	mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0x9FBBFF);//0xFFFFFF
+	mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0x9FBBFF);
 	while (i < data->el)
 	{
 		err -= data->es;
@@ -92,7 +92,6 @@ void	line_init(t_coord *arr, t_mlx *d)
 
 	k = 0;
 	line = 1;
-	// ft_color(d);
 	while (k < d->el_num - 1)
 	{
 		if (k + 1 <= (d->elems * line) - 1)

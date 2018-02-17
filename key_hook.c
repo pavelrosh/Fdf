@@ -30,19 +30,10 @@ void 	rotate_hook(int key, t_mlx *d)
 		ft_rotate(d, 'y', n_alpha);
 	else if (key == Y_LEFT)
 		ft_rotate(d, 'y', p_alpha);
-	else if (key == Z_LEFT)
+	else if (key == Z_LEFT || key == 83)
 		ft_rotate(d, 'z', n_alpha);
-	else if (key == Z_RIGHT)
+	else if (key == Z_RIGHT || key == 85)
 		ft_rotate(d, 'z', p_alpha);
-}
-
-void 	center_hook(int key, t_mlx *d)
-{
-	if (key == CENTER)
-	{
-		in_center(d);
-		start_coord(d);
-	}
 }
 
 void	move_hook(int key, t_mlx *d)
@@ -57,19 +48,44 @@ void	move_hook(int key, t_mlx *d)
 		ft_move(d, -1, 0);
 }
 
+void	stretch_hook(int key, t_mlx *d)
+{
+	if (key == PSX)
+		ft_stretch('x', p_stretch, d);
+	else if (key == PSY)
+		ft_stretch('y', p_stretch, d);
+	if (key == NSX)
+		ft_stretch('x', n_stretch, d);
+	else if (key == NSY)
+		ft_stretch('y', n_stretch, d);
+}
+
 int 	key_hook(int key, t_mlx *d)
 {
 	if (key == ESC)
-	{
-		free(d);
-		free(d->g);
-		// while (2);
 		exit(0);
+	if (key == CENTER)
+	{
+		in_center(d);
+		start_coord(d);
 	}
+	stretch_hook(key, d);
 	move_hook(key, d);
-	center_hook(key, d);
 	rotate_hook(key, d);
 	zoom_hook(key, d);
 	expose_hook(d);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

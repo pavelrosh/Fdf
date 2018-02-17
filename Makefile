@@ -10,22 +10,55 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = mlx
+# NAME = mlx
 MFLAGS = -framework OpenGL -framework AppKit -lmlx
-CFLAGS = -Wall -Wextra -Werror
-LIBFT = libft/libft.a
-GNL = get_next_line.c get_next_line.h
-SRCS = main.c create_matrix.c draw.c key_hook.c move.c rotate.c mtr_init.c help.c
+# CFLAGS = -Wall -Wextra -Werror
+# LIBFT = libft/libft.a
+# GNL = get_next_line.c get_next_line.h
+SRCS = main.c create_matrix.c draw.c key_hook.c move.c rotate.c \
+      mtr_init.c help.c mtr_init1.c get_next_line.c \
+      get_next_line.h 
+OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
+NAME = fdf
 
-$(NAME): 
-	@gcc $(SRCS) $(GNL) $(LIBFT) $(MFLAGS) -g $(CFLAGS)
+FLAGS = -Wall -Wextra -Werror 
+# all: $(NAME)
 
-clean :
-	@rm a.out
+# $(NAME): lib
+# 	@gcc $(SRCS) $(GNL) $(LIBFT) $(MFLAGS) $(CFLAGS)
+
+# %.o: %.c
+# 	$(CC) -o $@ -c $< $(FLAGS) 
+
+# clean :
+# 	@rm a.out
 	
-re: clean
-	$(NAME)
+# re: clean
+# 	$(NAME)
+# lib:
+# 	make -C libft
 	
-.PHONY: all clean re
+# .PHONY: all clean re
+
+all: $(OBJ)
+	gcc $(FLAGS) $(SRCS) $(MFLAGS) libft/libft.a
+
+$(NAME): all
+
+%.o: %.c
+	$(CC) -o $@ -c $< $(FLAGS) 
+
+re: relib fclean all
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+lib: 
+	make -C libft
+
+relib:
+	make -C libft re

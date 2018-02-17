@@ -82,3 +82,24 @@ void	menu_init(t_mlx *d)
 	mlx_string_put(d->mlx, d->win, 40, 325, 0xE4A839, "Y ROTATION");
 	mlx_string_put(d->mlx, d->win, 40, 350, 0x5FE42F, "X ROTATION");
 }
+
+void 	ft_stretch(char axis, double val, t_mlx *d)
+{
+	t_mtr *mtr;
+
+	to_win_corn(d);
+	if (axis == 'x')
+	{
+		mtr = mtr_stretch_init(val, 1);
+		mtr_mult(d, mtr);
+		free(mtr);
+	}
+	else
+	{
+		mtr = mtr_stretch_init(1, val);
+		mtr_mult(d, mtr);
+		free(mtr);
+	}
+	to_start_pos(d);
+	start_coord(d);
+}
