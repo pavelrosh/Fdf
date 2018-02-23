@@ -6,13 +6,13 @@
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:14:11 by proshchy          #+#    #+#             */
-/*   Updated: 2018/02/10 14:14:15 by proshchy         ###   ########.fr       */
+/*   Updated: 2018/02/22 13:36:58 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void 	mtr_init_zero(t_mtr *mtr)
+void		mtr_init_zero(t_mtr *mtr)
 {
 	mtr->m1 = 0;
 	mtr->m2 = 0;
@@ -25,9 +25,10 @@ void 	mtr_init_zero(t_mtr *mtr)
 	mtr->m9 = 0;
 }
 
-t_mtr 	*mtr_zoom_init(double val)
+t_mtr		*mtr_zoom_init(double val)
 {
 	t_mtr *mtr;
+
 	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
 		ft_error("malloc failed in mtr_zoom_init()");
 	mtr_init_zero(mtr);
@@ -37,9 +38,10 @@ t_mtr 	*mtr_zoom_init(double val)
 	return (mtr);
 }
 
-t_mtr 	*mtr_init_x(double degr)
+t_mtr		*mtr_init_x(double degr)
 {
 	t_mtr *mtr;
+
 	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
 		ft_putstr("malloc failed in mtr_init()");
 	mtr_init_zero(mtr);
@@ -51,9 +53,10 @@ t_mtr 	*mtr_init_x(double degr)
 	return (mtr);
 }
 
-t_mtr 	*mtr_init_y(double degr)
+t_mtr		*mtr_init_y(double degr)
 {
 	t_mtr *mtr;
+
 	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
 		ft_error("malloc failed in mtr_init()");
 	mtr_init_zero(mtr);
@@ -65,9 +68,10 @@ t_mtr 	*mtr_init_y(double degr)
 	return (mtr);
 }
 
-t_mtr 	*mtr_init_z(double degr)
+t_mtr		*mtr_init_z(double degr)
 {
 	t_mtr *mtr;
+
 	if (!(mtr = ft_memalloc(sizeof(t_mtr))))
 		ft_error("malloc failed in mtr_init()");
 	mtr_init_zero(mtr);
@@ -78,7 +82,3 @@ t_mtr 	*mtr_init_z(double degr)
 	mtr->m9 = 1;
 	return (mtr);
 }
-
-
-
-

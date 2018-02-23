@@ -6,13 +6,13 @@
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 11:48:25 by proshchy          #+#    #+#             */
-/*   Updated: 2018/02/15 11:49:28 by proshchy         ###   ########.fr       */
+/*   Updated: 2018/02/22 13:34:58 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "fdf.h"
+#include "fdf.h"
 
-void 	start_coord(t_mlx *d)
+void	start_coord(t_mlx *d)
 {
 	int k;
 
@@ -29,13 +29,13 @@ void 	start_coord(t_mlx *d)
 	d->g->degr_z = 0;
 }
 
-int 	ft_error(char *str)
+int		ft_error(char *str)
 {
 	ft_putstr(str);
 	exit(0);
 }
 
-void 	in_center_help(t_mlx *d)
+void	in_center_help(t_mlx *d)
 {
 	int k;
 
@@ -83,7 +83,7 @@ void	menu_init(t_mlx *d)
 	mlx_string_put(d->mlx, d->win, 40, 350, 0x5FE42F, "X ROTATION");
 }
 
-void 	ft_stretch(char axis, double val, t_mlx *d)
+void	ft_stretch(char axis, double val, t_mlx *d)
 {
 	t_mtr *mtr;
 

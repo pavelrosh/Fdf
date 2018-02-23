@@ -6,7 +6,7 @@
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:36:42 by proshchy          #+#    #+#             */
-/*   Updated: 2018/02/07 15:36:44 by proshchy         ###   ########.fr       */
+/*   Updated: 2018/02/22 13:10:38 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 void	zoom_hook(int key, t_mlx *d)
 {
-	if (key == incr)
-		ft_zoom(d, p_zoom);
-	else if (key == decr)
-		ft_zoom(d, n_zoom);
+	if (key == INCR)
+		ft_zoom(d, P_ZOOM);
+	else if (key == DECR)
+		ft_zoom(d, N_ZOOM);
 }
 
-void 	rotate_hook(int key, t_mlx *d)
+void	rotate_hook(int key, t_mlx *d)
 {
 	if (key == X_UP)
-		ft_rotate(d, 'x', p_alpha);
+		ft_rotate(d, 'x', P_ALPHA);
 	else if (key == X_DOWN)
-		ft_rotate(d, 'x', n_alpha);
+		ft_rotate(d, 'x', N_ALPHA);
 	else if (key == Y_RIGHT)
-		ft_rotate(d, 'y', n_alpha);
+		ft_rotate(d, 'y', N_ALPHA);
 	else if (key == Y_LEFT)
-		ft_rotate(d, 'y', p_alpha);
+		ft_rotate(d, 'y', P_ALPHA);
 	else if (key == Z_LEFT || key == 83)
-		ft_rotate(d, 'z', n_alpha);
+		ft_rotate(d, 'z', N_ALPHA);
 	else if (key == Z_RIGHT || key == 85)
-		ft_rotate(d, 'z', p_alpha);
+		ft_rotate(d, 'z', P_ALPHA);
 }
 
 void	move_hook(int key, t_mlx *d)
@@ -51,16 +51,16 @@ void	move_hook(int key, t_mlx *d)
 void	stretch_hook(int key, t_mlx *d)
 {
 	if (key == PSX)
-		ft_stretch('x', p_stretch, d);
+		ft_stretch('x', P_STRETCH, d);
 	else if (key == PSY)
-		ft_stretch('y', p_stretch, d);
+		ft_stretch('y', P_STRETCH, d);
 	if (key == NSX)
-		ft_stretch('x', n_stretch, d);
+		ft_stretch('x', N_STRETCH, d);
 	else if (key == NSY)
-		ft_stretch('y', n_stretch, d);
+		ft_stretch('y', N_STRETCH, d);
 }
 
-int 	key_hook(int key, t_mlx *d)
+int		key_hook(int key, t_mlx *d)
 {
 	if (key == ESC)
 		exit(0);
@@ -76,16 +76,3 @@ int 	key_hook(int key, t_mlx *d)
 	expose_hook(d);
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

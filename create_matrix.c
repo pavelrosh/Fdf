@@ -6,16 +6,16 @@
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 13:35:37 by proshchy          #+#    #+#             */
-/*   Updated: 2018/01/18 13:35:39 by proshchy         ###   ########.fr       */
+/*   Updated: 2018/02/22 13:22:27 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int 	line_count(char	*argv)
+int		line_count(char *argv)
 {
-	int 	res;
-	int 	fd;
+	int		res;
+	int		fd;
 	char	*str;
 
 	fd = open(argv, O_RDONLY);
@@ -45,8 +45,8 @@ void	in_center(t_mlx *d)
 	in_center_help(d);
 	d->center->x_c = (d->center->min_x + d->center->max_x) / 2;
 	d->center->y_c = (d->center->min_y + d->center->max_y) / 2;
-	d->center->c_x = (width / 2) - d->center->x_c;
-	d->center->c_y = (height / 2) - d->center->y_c;
+	d->center->c_x = (WIDTH / 2) - d->center->x_c;
+	d->center->c_y = (HEIGHT / 2) - d->center->y_c;
 	while (k < d->el_num)
 	{
 		d->coords[k].x = d->coords[k].x + d->center->c_x;
@@ -55,7 +55,7 @@ void	in_center(t_mlx *d)
 	}
 }
 
-int 	in_matrix(int **xy, char **coord)
+int		in_matrix(int **xy, char **coord)
 {
 	int j;
 
@@ -79,8 +79,8 @@ int		read_fdf(int ***xy, int fd)
 {
 	char	*line;
 	char	**coord;
-	int 	i;
-	int 	w;
+	int		i;
+	int		w;
 
 	line = NULL;
 	w = 0;
@@ -93,7 +93,7 @@ int		read_fdf(int ***xy, int fd)
 		i++;
 	}
 	close(fd);
-	return(w);
+	return (w);
 }
 
 void	coord_in_arr(t_mlx *d, int **xy)
@@ -121,17 +121,3 @@ void	coord_in_arr(t_mlx *d, int **xy)
 	}
 	free(*xy);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

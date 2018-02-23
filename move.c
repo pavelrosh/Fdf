@@ -6,7 +6,7 @@
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 15:47:40 by proshchy          #+#    #+#             */
-/*   Updated: 2018/02/08 15:47:41 by proshchy         ###   ########.fr       */
+/*   Updated: 2018/02/22 13:39:48 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	ft_move(t_mlx *d, int dx, int dy)
 	k = 0;
 	while (k < d->el_num)
 	{
-		d->coords[k].x = d->coords[k].x + (dx * step);
-		d->coords[k].y = d->coords[k].y + (dy * step);
+		d->coords[k].x = d->coords[k].x + (dx * STEP);
+		d->coords[k].y = d->coords[k].y + (dy * STEP);
 		k++;
 	}
 	start_coord(d);
 }
 
-void 	to_win_corn(t_mlx *d)
+void	to_win_corn(t_mlx *d)
 {
 	int k;
 
@@ -41,7 +41,7 @@ void 	to_win_corn(t_mlx *d)
 	}
 }
 
-void 	to_start_pos(t_mlx *d)
+void	to_start_pos(t_mlx *d)
 {
 	int k;
 
@@ -54,9 +54,10 @@ void 	to_start_pos(t_mlx *d)
 	}
 }
 
-void 	ft_zoom(t_mlx *d, double val)
+void	ft_zoom(t_mlx *d, double val)
 {
 	t_mtr *mtr;
+
 	mtr = mtr_zoom_init(val);
 	to_win_corn(d);
 	mtr_mult(d, mtr);
@@ -67,10 +68,10 @@ void 	ft_zoom(t_mlx *d, double val)
 
 void	mtr_mult(t_mlx *d, t_mtr *mtr)
 {
-	int k;
-	double x;
-	double y;
-	double z;
+	int		k;
+	double	x;
+	double	y;
+	double	z;
 
 	k = 0;
 	while (k < d->el_num)
@@ -84,11 +85,3 @@ void	mtr_mult(t_mlx *d, t_mtr *mtr)
 		k++;
 	}
 }
-
-
-
-
-
-
-
-

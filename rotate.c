@@ -6,13 +6,13 @@
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 17:15:08 by proshchy          #+#    #+#             */
-/*   Updated: 2018/02/09 17:15:09 by proshchy         ###   ########.fr       */
+/*   Updated: 2018/02/22 13:38:31 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void 	start_coord_init(t_mlx *d)
+void	start_coord_init(t_mlx *d)
 {
 	int k;
 
@@ -26,12 +26,12 @@ void 	start_coord_init(t_mlx *d)
 	}
 }
 
-void 	rotate_help(t_mlx *d)
+void	rotate_help(t_mlx *d)
 {
 	t_mtr *mtr_x;
 	t_mtr *mtr_y;
 	t_mtr *mtr_z;
-	
+
 	if (d->g->degr_x != 0)
 	{
 		mtr_x = mtr_init_x(d->g->degr_x);
@@ -53,11 +53,10 @@ void 	rotate_help(t_mlx *d)
 	to_start_pos(d);
 }
 
-void 	ft_rotate(t_mlx *d, char axis, float degr)
+void	ft_rotate(t_mlx *d, char axis, float degr)
 {
 	start_coord_init(d);
 	to_win_corn(d);
-
 	if (axis == 'x')
 		d->g->degr_x += degr;
 	else if (axis == 'y')
@@ -66,25 +65,3 @@ void 	ft_rotate(t_mlx *d, char axis, float degr)
 		d->g->degr_z += degr;
 	rotate_help(d);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

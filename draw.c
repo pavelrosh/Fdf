@@ -6,18 +6,22 @@
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 15:10:13 by proshchy          #+#    #+#             */
-/*   Updated: 2018/01/27 15:10:16 by proshchy         ###   ########.fr       */
+/*   Updated: 2018/02/22 13:26:30 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double 	sign(double x) 
+double		sign(double x)
 {
-	return (x > 0) ? 1 : (x < 0) ? -1 : 0;
+	if (x > 0)
+		return (1);
+	else if (x < 0)
+		return (-1);
+	return (0);
 }
 
-void 	vector_init(t_mlx *data)
+void		vector_init(t_mlx *data)
 {
 	if (data->dx > data->dy)
 	{
@@ -35,10 +39,11 @@ void 	vector_init(t_mlx *data)
 	}
 }
 
-void 	data_init(t_coord *arr, int k, int w, t_mlx *data)
+void		data_init(t_coord *arr, int k, int w, t_mlx *data)
 {
 	data->x = arr[k].x;
 	data->y = arr[k].y;
+	data->color = ft_color(data);
 	if (w == -1)
 	{
 		data->x_end = arr[k + 1].x;
@@ -58,14 +63,14 @@ void 	data_init(t_coord *arr, int k, int w, t_mlx *data)
 	vector_init(data);
 }
 
-void 	draw_line(t_mlx *data)
+void		draw_line(t_mlx *data)
 {
-	double err;
-	int i;
+	double	err;
+	int		i;
 
 	i = 0;
 	err = data->el / 2;
-	mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0x9FBBFF);
+	mlx_pixel_put(data->mlx, data->win, data->x, data->y, data->color);
 	while (i < data->el)
 	{
 		err -= data->es;
@@ -80,15 +85,15 @@ void 	draw_line(t_mlx *data)
 			data->x += data->pdx;
 			data->y += data->pdy;
 		}
-		mlx_pixel_put(data->mlx, data->win, data->x, data->y, 0x9FBBFF);
+		mlx_pixel_put(data->mlx, data->win, data->x, data->y, data->color);
 		i++;
 	}
 }
 
-void	line_init(t_coord *arr, t_mlx *d)
+void		line_init(t_coord *arr, t_mlx *d)
 {
-	int 	k;
-	int 	line;
+	int	k;
+	int	line;
 
 	k = 0;
 	line = 1;
